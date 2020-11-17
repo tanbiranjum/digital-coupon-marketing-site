@@ -1,0 +1,25 @@
+1,5faf86f7c548f,1,some text test,Free
+2,5faf86f7cc1c4,1,some text,USED
+3,5faf86f7cc1c4,1,some text,FREE
+4,5faf86ff7c4b7,1,fasdf,Free
+5,5faf86f7d28b0,1,some text,Free
+6,5fb157c8475ad,1,NONE,Free
+7,5fb157c84ac86,1,Hello Anika this coupon is for you.,Free
+8,5fb157c84df29,1,NONE,Free
+9,5fb157c8511b6,1,NONE,Free
+10,5fb157c854682,1,NONE,Free
+11,5fb15dece0e6f,1,dsf,Free
+12,5fb15dece515c,1,dsf,Free
+13,5fb15dece8ebe,1,dsf,Free
+14,5fb15decebc55,1,dsf,Free
+15,5fb15deced908,1,dsf,USED
+16,5fb211781d010,1,test,Free
+17,5fb211781fffc,1,test,Free
+18,5fb2117821b35,1,test,Free
+19,5fb211782354b,1,test,Free
+20,5fb2117824f7b,1,test,USED
+21,5fb2a1c0880a3,2,Summer offer,Free
+22,5fb2a1c08b75e,2,Summer offer,Free
+23,5fb2a1c08d045,2,Summer offer,Free
+24,5fb2a1c08e7bb,2,Summer offer,Free
+25,5fb2a1c08ff93,2,Summer offer,USED
