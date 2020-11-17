@@ -1,0 +1,36 @@
+Start wamp and put the folder inside
+
+URL: http://localhost/project/manager.php
+
+Manger
+--1 create offer
+--2 edit offer
+--3 view offer list
+--4 view product list
+--5 view customer list
+--6 view customer detail
+--7 view customer purchase history
+--8 generate coupon
+--9 view coupon list
+--10 send coupon to customer
+--11 check status of the coupon
+--12 edit coupon
+
+
+Table: 
+
+Offer
+coupon
+Product
+Customer
+customer_transaction
+
+offer(id, offer_name, type, start_date, end_date, discount_amount, min_purchase_amount, created_by);
+
+coupon(id, coupon_code, offer_id, coupon_display_msg, created_by);
+
+product(id, product_name, quantity, price,  product_type);
+
+customer(id, first_name, last_name, address, age);
+
+customer_transaction(id, customer_id, product_id, quantity, price, total_price, date);
