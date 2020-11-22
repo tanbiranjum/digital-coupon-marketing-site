@@ -1,6 +1,3 @@
-Start wamp and put the folder inside
-
-URL: http://localhost/project/manager.php
 
 Manger
 --1 create offer
@@ -17,20 +14,3 @@ Manger
 --12 edit coupon
 
 
-Table: 
-
-Offer
-coupon
-Product
-Customer
-customer_transaction
-
-offer(id, offer_name, type, start_date, end_date, discount_amount, min_purchase_amount, created_by);
-
-coupon(id, coupon_code, offer_id, coupon_display_msg, created_by);
-
-product(id, product_name, quantity, price,  product_type);
-
-customer(id, first_name, last_name, address, age);
-
-customer_transaction(id, customer_id, product_id, quantity, price, total_price, date);
