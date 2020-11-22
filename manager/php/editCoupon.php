@@ -4,7 +4,7 @@
 	
 	$id = $_REQUEST['id'];
 
-	$couponFile = "coupon.txt";
+	$couponFile = "../database/coupon.txt";
 	$all_lines = file($couponFile);
 	$myArray = explode(',', $all_lines["$id"-1]);
 
@@ -30,7 +30,7 @@
 			// Put the lines back together, and write back into txt file
 			file_put_contents($couponFile, implode("", $all_lines));			
 			
-			header('location:viewCoupon.php');
+			header('location:../view/viewCoupon.php');
 		}
 	} 
 ?>

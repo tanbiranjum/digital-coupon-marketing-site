@@ -9,7 +9,7 @@ table, th, td {
 
 $data = "";
 $err = "";
-$myArray = array("","","","","");
+$myArray = array("","","","",""); //
 $couponCode = "";
 	
 if(isset($_POST['submit'])){
@@ -17,20 +17,20 @@ if(isset($_POST['submit'])){
 	$customerId = $_POST['customerId'];
 	
 	if($couponCode == ""){
-		$err = $err . "Coupon Code required<br/>";
+		$err = $err . "Error: Coupon Code required<br/>"; //NULL validation
 	}
 	
 	if($customerId == ""){
-		$err = $err . "Customer ID required<br/>";
+		$err = $err . "Error: Customer ID required<br/>";  //NULL validation
 	}
 	
-	if ((str_word_count($err)==0) && ($h = fopen("coupon.txt", "r")) !== FALSE) 
+	if ((str_word_count($err)==0) && ($h = fopen("../database/coupon.txt", "r")) !== FALSE) 
 	{
 		while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
 		{   
 			if($data[1]==$couponCode) {
 				$myArray = $data;
-				$couponFile = "coupon.txt";
+				$couponFile = "../database/coupon.txt";
 				$all_lines = file($couponFile);
 				
 				$update = $myArray[0].",".$myArray[1].",".$myArray[2].",".$myArray[3].",USED\n";
@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
 				// Put the lines back together, and write back into txt file
 				file_put_contents($couponFile, implode("", $all_lines));			
 				
-				header('location:viewCoupon.php');
+				header('location:../view/viewCoupon.php');
 				
 				break;
 			}
@@ -58,10 +58,10 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 
-<a href='createCoupon.php'>Generate Coupon</a> |
+<a href='createCoupon.php'>Generate Coupon</a> 
 <a href='searchCoupon.php'>Search Coupon</a><br/><br/>
 	
-	<?php echo $err ?>
+	<?php echo $err ?> <!--Empty error-->
 	<form action="" method="post">
 		<fieldset style="width:220px">
 		<legend>Send Coupon To Customer</legend>

@@ -6,7 +6,7 @@ table, th, td {
 </style>
 <?php 
 
-if (($h = fopen("customer_transaction.txt", "r")) !== FALSE) 
+if (($h = fopen("../database/customer_transaction.txt", "r")) !== FALSE) 
 {
     echo "<table>";
 	echo "<tr>";
@@ -14,11 +14,11 @@ if (($h = fopen("customer_transaction.txt", "r")) !== FALSE)
 		<td>Date</td><td>Customer Detail</td>";
 	echo "</tr>";
 	  
-    while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+    while (($data = fgetcsv($h, 1000, ",")) !== FALSE) //from file read line one by one
     {   
       echo "<tr>";
           echo "<td>{$data[0]}</td><td>{$data[1]}</td><td>{$data[2]}</td><td>{$data[3]}</td><td>{$data[4]}</td>
-		  <td>{$data[5]}</td><td>{$data[6]}</td><td><a href='customerDetail.php?id={$data[1]}'>Customer Detail</a></td>";
+		  <td>{$data[5]}</td><td>{$data[6]}</td><td><a href='customerDetail.php?id={$data[1]}'>Customer Detail</a></td>";  //
       echo "</tr>";
     }
     echo "</table>";

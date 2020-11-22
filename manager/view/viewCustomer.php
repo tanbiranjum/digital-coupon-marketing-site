@@ -6,11 +6,11 @@ table, th, td {
 </style>
 <?php 
 
-if (($h = fopen("product.txt", "r")) !== FALSE) 
+if (($h = fopen("../database/customer.txt", "r")) !== FALSE) 
 {
-    echo "<table>";
+    echo "<table >";
 	echo "<tr>";
-		echo "<td>ID</td><td>Product Name</td><td>Quantity</td><td>Price</td><td>Product Type</td>";
+		echo "<td>ID</td><td>First Name</td><td>Last Name</td><td>Address</td><td>Age</td>";
 	echo "</tr>";
 	  
     while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 

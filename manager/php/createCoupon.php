@@ -8,7 +8,7 @@
 		$couponDisplayMessage = $_POST['couponDisplayMessage'];
 		$couponCount = $_POST['couponCount'];
 		
-		if($id == ""){
+		if($id == ""){ //NULL validation
 			$err = $err . "Id field required<br/>";
 		}  if(empty($offerId)) {
 			$err = $err . "offerId required<br/>";
@@ -19,24 +19,26 @@
 		}  
 		
 		if(str_word_count($err)==0) {
-			$couponFile = "coupon.txt";
+			$couponFile = "../database/coupon.txt";
 			$all_lines = file($couponFile);
 			
 			while($couponCount>0) {
-				$couponCode = uniqid();
+				$couponCode = uniqid();  //uniqid() function generates a unique ID based on current time
 				$update = $id.",".$couponCode.",".$offerId.",".$couponDisplayMessage.",Free\n";
 				// Make the change to line in array
 				$all_lines["$id"-1] = $update; 
 				// Put the lines back together, and write back into txt file
-				file_put_contents($couponFile, implode("", $all_lines));				
+				file_put_contents($couponFile, implode("", $all_lines)); //implode() function returns a string from the elements of an array
+
+				//file_put_contents writes data in offer file
 				
 				$all_lines = file($couponFile);
-				$myArray = explode(',', $all_lines["$id"-1]);
+				$myArray = explode(',', $all_lines["$id"-1]); //breaks a string into an array
 				$id = $id + 1;
 				$couponCount = $couponCount - 1;
 			}			
 			
-			header('location:viewCoupon.php');
+			header('location:../view/viewCoupon.php');
 		}
 	} 
 ?>
@@ -49,7 +51,7 @@
 </head>
 <body>
 
-<a href='searchCoupon.php'>Search Coupon</a> |
+<a href='searchCoupon.php'>Search Coupon</a> 
 <a href='sendCouponToCustomer.php'>Send Coupon To Customer</a><br/><br/>
 	
 	<?php echo $err ?>

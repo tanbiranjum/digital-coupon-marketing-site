@@ -2,9 +2,9 @@
 
 $id = $_REQUEST['id'];
 
-$customerFile = "customer.txt";
+$customerFile = "../database/customer.txt";
 $all_lines = file($customerFile);
-$myArray = explode(',', $all_lines["$id"-1]);
+$myArray = explode(',', $all_lines["$id"-1]); //breaks a string into an array
 ?>
 
 
@@ -17,7 +17,7 @@ $myArray = explode(',', $all_lines["$id"-1]);
 	<hr>Customer Detail<hr><br/>
 
 	<table>
-		<tr><td>ID</td><td></td><td><?php echo $myArray[0] ?></td></tr>
+		<tr><td>ID</td><td></td><td><?php echo $myArray[0] ?></td></tr>   <!--Customer ID    -->
 		<tr><td>First Name</td><td></td><td><?php echo $myArray[1] ?></td></tr>
 		<tr><td>Last Name</td><td></td><td><?php echo $myArray[2] ?></td></tr>
 		<tr><td>Address</td><td></td><td><?php echo $myArray[3] ?></td></tr>
@@ -28,17 +28,17 @@ $myArray = explode(',', $all_lines["$id"-1]);
 	
 	<?php 
 
-	if (($h = fopen("customer_transaction.txt", "r")) !== FALSE) 
+	if (($h = fopen("../database/customer_transaction.txt", "r")) !== FALSE) 
 	{
 		echo "<table><tr></tr>";
 		echo "<tr>";
-			echo "<td>ID</td><td>Product ID</td><td>Quantity</td><td>Price</td><td>Total Price</td>
+			echo "<td>Transaction ID</td><td>Product ID</td><td>Quantity</td><td>Price</td><td>Total Price</td>
 			<td>Date</td>";
 		echo "</tr>";
 		  
 		while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
 		{   
-			if($data[1]==$id) {
+			if($data[1]==$id) {    //Customer ID will match with 
 				echo "<tr>";
 					echo "<td>{$data[0]}</td><td>{$data[2]}</td><td>{$data[3]}</td><td>{$data[4]}</td>
 					  <td>{$data[5]}</td><td>{$data[6]}</td>";

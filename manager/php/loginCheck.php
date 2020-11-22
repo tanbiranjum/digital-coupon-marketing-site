@@ -7,7 +7,7 @@
 
 		if(empty($username) || empty($password)){
 			//echo "null submission";
-			header('location: login.php?msg=null');
+			header('location: ../login.php?msg=null');
 		}else{
 
 			if($username == $password){
@@ -15,9 +15,9 @@
 				$_SESSION['flag'] = "true";
 				$_SESSION['username'] = $username;
 
-				header('location: manager.php');
+				header('location: ../view/manager.php');
 			}else{
-				header('location: login.php?msg=invalid');
+				header('location: ../login.php?msg=invalid');
 			}
 		}
 	}else{
