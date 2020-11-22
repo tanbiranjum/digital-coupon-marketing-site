@@ -48,7 +48,7 @@ if(isset($_SESSION['flag'])){  //
 <?php
 
 	}else{
-		header('location: login.php?msg=login_first');  //
+		header('location: ../login.php?msg=login_first');  //
 	}
 
 ?>
