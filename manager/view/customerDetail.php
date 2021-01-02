@@ -1,54 +1,54 @@
 <?php
-
+require_once('../php/header.php');
+require_once('../models/customerService.php');
+require_once('../models/customerTransactionService.php');
 $id = $_REQUEST['id'];
 
-$customerFile = "../database/customer.txt";
-$all_lines = file($customerFile);
-$myArray = explode(',', $all_lines["$id"-1]); //breaks a string into an array
+$customer = getCustomerById($id);
+$ct = getCustomerTransactionByCustomerId($id);
 ?>
 
 
 <html>
 <head>
 	<title>Customer Detail</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+	<a href="../view/viewCustomerPurchaseHistory.php">Back</a> |
+	<a href="../php/logout.php">logout</a>
 	
 	<hr>Customer Detail<hr><br/>
 
 	<table>
-		<tr><td>ID</td><td></td><td><?php echo $myArray[0] ?></td></tr>   <!--Customer ID    -->
-		<tr><td>First Name</td><td></td><td><?php echo $myArray[1] ?></td></tr>
-		<tr><td>Last Name</td><td></td><td><?php echo $myArray[2] ?></td></tr>
-		<tr><td>Address</td><td></td><td><?php echo $myArray[3] ?></td></tr>
-		<tr><td>Age</td><td></td><td><?php echo $myArray[4] ?></td></tr>
+		<tr><td>ID</td><td><?php echo $customer['id'] ?></td></tr>
+		<tr><td>First Name</td><td><?php echo $customer['first_name'] ?></td></tr>
+		<tr><td>Last Name</td><td><?php echo $customer['last_name'] ?></td></tr>
+		<tr><td>Address</td><td><?php echo $customer['address'] ?></td></tr>
+		<tr><td>Age</td><td><?php echo $customer['age'] ?></td></tr>
 	</table>
 	
+	<br/>
 	<hr>Transaction History<hr><br/>
 	
 	<?php 
 
-	if (($h = fopen("../database/customer_transaction.txt", "r")) !== FALSE) 
+	if (count($ct)>0) 
 	{
-		echo "<table><tr></tr>";
+		echo "<table>";
 		echo "<tr>";
-			echo "<td>Transaction ID</td><td>Product ID</td><td>Quantity</td><td>Price</td><td>Total Price</td>
-			<td>Date</td>";
-		echo "</tr>";
-		  
-		while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+			echo "<th>ID</th><th>Customer ID</th><th>Product ID</th><th>Quantity</th><th>Price</th><th>Total Price</th>
+			<th>Date</th>";
+		echo "</tr>";  
+		
+		foreach ($ct as $data) 
 		{   
-			if($data[1]==$id) {    //Customer ID will match with 
-				echo "<tr>";
-					echo "<td>{$data[0]}</td><td>{$data[2]}</td><td>{$data[3]}</td><td>{$data[4]}</td>
-					  <td>{$data[5]}</td><td>{$data[6]}</td>";
-				echo "</tr>";	
-			}		  
+		  echo "<tr>";
+			  echo "<td>{$data['id']}</td><td>{$data['customer_id']}</td><td>{$data['product_id']}</td>
+			  <td>{$data['quantity']}</td><td>{$data['price']}</td><td>{$data['total_price']}</td><td>{$data['date']}</td>";
+		  echo "</tr>";
 		}
-		echo "</table>";
-
-	  // Close the file
-	  fclose($h);
+		echo "</table>";	
 	}
 
 	?>

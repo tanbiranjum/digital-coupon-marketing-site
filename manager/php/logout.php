@@ -1,9 +1,7 @@
 <?php
-	
-	session_start();
 	session_destroy();
 
-	
-	header('location: ../login.php');
+	setcookie('flag', null, time()+3600, '/');
+	header('location: ../view/login.php');
 
 ?>

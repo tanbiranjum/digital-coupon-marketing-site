@@ -1,27 +1,26 @@
 <?php
-	session_start();
+	require_once('../models/userLoginService.php');
 
 	if(isset($_REQUEST['submit'])){
-		$username = $_REQUEST['username'];
+		$userName = $_REQUEST['userName'];
 		$password = $_REQUEST['password'];
 
-		if(empty($username) || empty($password)){
-			//echo "null submission";
-			header('location: ../login.php?msg=null');
+		if(empty($userName) || empty($password)){
+			header('location: ../view/login.php?msg=null');
 		}else{
+			$status = validate($userName,$password);
 
-			if($username == $password){
-				//$flag = true;
-				$_SESSION['flag'] = "true";
-				$_SESSION['username'] = $username;
-
+			if($status){
+				setcookie('flag', $userName, time()+3600, '/');
+				session_start();
+				$_SESSION["flag"] = $userName;
 				header('location: ../view/manager.php');
 			}else{
-				header('location: ../login.php?msg=invalid');
+				header('location: ../view/login.php?msg=invalid');
 			}
 		}
 	}else{
-		header('location: login.php');
+		header('location: ../view/login.php');
 	}
 	
 

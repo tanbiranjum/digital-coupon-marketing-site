@@ -1,35 +1,36 @@
 <?php
-
+	
+	$data = '';
 	if(isset($_REQUEST['msg'])){
 		if($_REQUEST['msg'] == 'null'){
-			echo "null submission...";
+			$data = "null submission...";
 		}
 
 		if($_REQUEST['msg'] == 'invalid'){
-			echo "invalid username/password";
+			$data = "invalid username/password";
 		}
 
 		if($_REQUEST['msg'] == 'login_first'){
-			echo "please login first...";
+			$data = "please login first...";
 		}
 	}
 ?>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Page</title>
+	<title>Login Page</title>	
 </head>
 <body>
-	<form method="post" action="php/loginCheck.php">
+	<div id="error" style="color:red"><?php echo $data ?></div>
+	<form method="post" action="../php/loginCheck.php">
 		<fieldset>
 			<legend>Login</legend>
 			<table>
 				<tr>
 					<td>Username</td>
-					<td><input type="text" name="username"></td>
+					<td><input type="text" name="userName"></td>
 				</tr>
 				<tr>
 					<td>Password</td>
