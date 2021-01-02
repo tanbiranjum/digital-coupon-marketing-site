@@ -1,28 +1,39 @@
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-</style>
+<?php
+	require_once('../php/header.php');
+	require_once('../models/customerService.php');
+
+	$customerlist = getAllCustomer();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer List Page</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+	<a href="manager.php">Home</a> |
+	<a href="../php/logout.php">logout</a>
+
+	<h3>Customer list</h3>
+
 <?php 
 
-if (($h = fopen("../database/customer.txt", "r")) !== FALSE) 
+if (count($customerlist)>0) 
 {
-    echo "<table >";
+    echo "<table style='width:60%;'>";
 	echo "<tr>";
-		echo "<td>ID</td><td>First Name</td><td>Last Name</td><td>Address</td><td>Age</td>";
+		echo "<th>ID</th><th>First Name</th><th>Last Name</th><th>Address</th><th>Age</th>";
 	echo "</tr>";
 	  
-    while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+    foreach ($customerlist as $data) 
     {   
       echo "<tr>";
-          echo "<td>{$data[0]}</td><td>{$data[1]}</td><td>{$data[2]}</td><td>{$data[3]}</td><td>{$data[4]}</td>";
+          echo "<td>{$data['id']}</td><td>{$data['first_name']}</td><td>{$data['last_name']}</td>
+		  <td>{$data['address']}</td><td>{$data['age']}</td>";
       echo "</tr>";
     }
     echo "</table>";
-
-  // Close the file
-  fclose($h);
 }
 
 ?>

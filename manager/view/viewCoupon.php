@@ -1,35 +1,44 @@
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-</style>
+<?php
+	require_once('../php/header.php');
+	require_once('../models/couponService.php');
 
-<a href='../php/createCoupon.php'>Generate Coupon</a> 
-<a href='../php/searchCoupon.php'>Search Coupon</a> 
-<a href='../php/sendCouponToCustomer.php'>Send Coupon To Customer</a><br/><br/>
+	$couponlist = getAllCoupon();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coupon List Page</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+	<a href='createCouponView.php'>Generate Coupon</a> |
+	<a href='searchCoupon.php'>Search Coupon</a> |
+	<a href='sendCouponToCustomer.php'>Send Coupon To Customer</a> |
+	<a href="manager.php">Home</a> |
+	<a href="../php/logout.php">logout</a>
+
+	<h3>Coupon list</h3>
 
 <?php 
 
-if (($h = fopen("../database/coupon.txt", "r")) !== FALSE) 
+if (count($couponlist)>0) 
 {
     echo "<table>";
+	
 	echo "<tr>";
-		echo "<td>ID</td><td>Coupon Code</td><td>Offer ID</td><td>Coupon Display Message</td>
-		<td>Status</td><td>Action</td>";
+		echo "<th>ID</th><th>Coupon code</th><th>Offer ID</th><th>Coupon Display Message</th><th>Status</th><th>Action</th>";
 	echo "</tr>";
 	  
-    while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+    foreach ($couponlist as $data) 
     {   
       echo "<tr>";
-          echo "<td>{$data[0]}</td><td>{$data[1]}</td><td>{$data[2]}</td><td>{$data[3]}</td>
-		  <td>{$data[4]}</td><td><a href='../php/editCoupon.php?id={$data[0]}'>Edit</a>";
+          echo "<td>{$data['id']}</td><td>{$data['coupon_code']}</td><td>{$data['offer_id']}</td>
+		  <td>{$data['coupon_display_msg']}</td><td>{$data['status']}</td>
+		  <td><a href='editCouponView.php?id={$data['id']}'>Edit</a> | <a href='deleteCouponView.php?id={$data['id']}'>Delete</a></td>";
       echo "</tr>";
     }
     echo "</table>";
-
-  // Close the file
-  fclose($h);
 }
 
 ?>

@@ -1,11 +1,19 @@
 <?php
 	
-	//$data = "";     
-	$err = "";       //
+	require_once('../php/header.php');
+	require_once('../models/offerService.php');
+	
+	$data = "";
+	$err = "";
+	$offerName = "";
+	$type = "";
+	$startDate = "";
+	$endDate = "";
+	$discountAmount = "";
+	$minimumPurchaseAmount = "";
 
-	if(isset($_POST['submit'])){   //
-		$err = "";  
-		$id = $_POST['id'];
+	if(isset($_POST['submit'])){
+		$err = "";
 		$offerName = $_POST['offerName'];
 		$type = $_POST['type'];
 		$startDate = $_POST['startDate'];
@@ -13,9 +21,7 @@
 		$discountAmount = $_POST['discountAmount'];
 		$minimumPurchaseAmount = $_POST['minimumPurchaseAmount'];
 		
-		if($id == ""){              // NULL VALIDATION
-			$err = $err . "Id field required<br/>";   
-		}  if(empty($offerName)) {
+		if(empty($offerName)) {
 			$err = $err . "Offer name required<br/>";
 		} if(empty($type)) {
 			$err = $err . "Type required<br/>";
@@ -29,61 +35,54 @@
 			$err = $err . "Minimum Purchase Amount required<br/>";
 		} 
 		
-		if(str_word_count($err)==0){            // error count is 0    
-			$offerFile = "../database/offer.txt";   
-			$all_lines = file($offerFile);                     //  Lines of offer file saves in $all_lines
-			$update = $id.",".$offerName.",".$type.",".$startDate.",".$endDate.",".$discountAmount.",".$minimumPurchaseAmount."\n";
-			// Make the change to line in array
-			$all_lines["$id"-1] = $update; 
-			// Put the lines back together, and write back into txt file
-			file_put_contents($offerFile, implode("", $all_lines));  //implode() function returns a string from the elements of an array
+		if(str_word_count($err)==0){
 			
-			//file_put_contents writes data in offer file
-			
-			$all_lines = file($offerFile);    //
-			$myArray = explode(',', $all_lines["$id"-1]);   //breaks a string into an array
-			
-			header('location:../view/viewOffer.php');   //Goto the view offer page
+			$result = insertOffer($offerName, $type, $startDate, $endDate, $discountAmount, $minimumPurchaseAmount);
+			header('location:../view/viewOffer.php');
 		}
 	} 
 ?>
 
 
 
+
 <html>
 <head>
+	
 	<title>Offer Detail</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+
+	<a href="../view/viewOffer.php">Offer</a> |
+	<a href="../php/logout.php">logout</a> 
 	
-	<?php echo $err ?>  <!--Show empty error -->
+	<br/><br/>
 	
-	<form action="" method="post"> <!--submited in this form -->
-	
+	<div id="error"><?php echo $err ?></div>
+	<form action="" method="post">
 		<fieldset style="width:220px">
 		<legend>Create Offer</legend>
-			<label for="id">ID</label><br/>
-			<input type="number" id="id" name="id" value="" style="margin-top:5px;"></input><br/> 
 			
 			<label for="id">Offer Name</label><br/>
-			<input type="text" id="id" name="offerName" value="" style="margin-top:5px;"></input><br/>
+			<input type="text" id="id" name="offerName" value="<?php echo $offerName ?>" style="margin-top:5px;"></input><br/>
 			
 			<label for="id">Type</label><br/>
-			<input type="text" id="id" name="type" value="" style="margin-top:5px;"></input><br/>
+			<input type="text" id="id" name="type" value="<?php echo $type ?>" style="margin-top:5px;"></input><br/>
 			
 			<label for="id">Start date</label><br/>
-			<input type="date" id="id" name="startDate" value="" style="margin-top:5px;"></input><br/>
+			<input type="date" id="id" name="startDate" value="<?php echo $startDate ?>" style="margin-top:5px;"></input><br/>
 			
 			<label for="id">End date</label><br/>
-			<input type="date" id="id" name="endDate" value="" style="margin-top:5px;"></input><br/>
+			<input type="date" id="id" name="endDate" value="<?php echo $endDate ?>" style="margin-top:5px;"></input><br/>
 			
 			<label for="id">Discoount Amount</label><br/>
-			<input type="number" id="id" name="discountAmount" value="" style="margin-top:5px;"></input><br/>
+			<input type="number" id="id" name="discountAmount" value="<?php echo $discountAmount ?>" style="margin-top:5px;"></input><br/>
 			
 			<label for="id">Minimum purchase Amount</label><br/>
-			<input type="number" id="id" name="minimumPurchaseAmount" value="" style="margin-top:5px;"></input><br/>
+			<input type="number" id="id" name="minimumPurchaseAmount" value="<?php echo $minimumPurchaseAmount ?>" style="margin-top:5px;"></input><br/>
 		  
-		  <input type="submit" name="submit" value="Submit" style="margin-top:5px;"> <!--        -->
+		  <input type="submit" name="submit" value="Submit" style="margin-top:5px;">
 		</fieldset>
 	</form> 
 	
